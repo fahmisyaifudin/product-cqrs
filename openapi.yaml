@@ -1,0 +1,41 @@
+swagger: "2.0"
+info:
+  title: Product Service Open-API
+  description: Sample API on API Gateway with a Google Cloud Functions as backend
+  version: 1.0.0
+schemes:
+  - https
+produces:
+  - application/json
+security:
+  - firebase: []
+securityDefinitions:
+  firebase:
+    authorizationUrl: ""
+    flow: "implicit"
+    type: "oauth2"
+    x-google-issuer: "https://securetoken.google.com/eng-unfolding-388110"
+    x-google-jwks_uri: "https://www.googleapis.com/service_accounts/v1/metadata/x509/securetoken@system.gserviceaccount.com"
+    x-google-audiences: "eng-unfolding-388110"
+paths:
+  /product:
+    get:
+      summary: Get and search product
+      operationId: get_product
+      x-google-backend:
+        address: "https://asia-southeast1-eng-unfolding-388110.cloudfunctions.net/product-search"
+      responses:
+        "200":
+          description: A successful response
+          schema:
+            type: string
+    post:
+      summary: Add product
+      operationId: add_product
+      x-google-backend:
+        address: "https://asia-southeast1-eng-unfolding-388110.cloudfunctions.net/product"
+      responses:
+        "201":
+          description: A successful response
+          schema:
+            type: string
